@@ -1,0 +1,116 @@
+{% extends 'admin_inicio.html' %}
+{% block main %}
+{% load custom_tags %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<div class="card shadow">
+    <div class="card-body">
+        <h5 class="p-2" style="border-bottom: 2px solid orange;">{{order_status}}</h5>
+        <div class="container-fluid">
+            <table class="table table-bordered table-sm" id="example">
+                <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>ID de Orden</th>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Estado</th>
+                    <th>Acción</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in order %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{i.id}}</td>
+                    <td>{{i.usuario.first_name}} {{i.usuario.last_name}}</td>
+                    <td>{{i.usuario.username}}</td>
+                    <a href="/admin-order-track/{{i.id}}/" class="btn btn-primary" title="Track Status">{{i.get_estado_display}}</a>
+                    <td>
+                        <!-- Botón de activación de modal -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal-{{forloop.counter}}">
+                            <i class="fas fa-info"></i>
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal-{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Detalle del pedido</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <table width="100%">
+                                            <tr>
+                                                <th>ID del Pedido</th>
+                                                <td>{{i.id}}</td>
+                                                <th>Estado</th>
+                                                <td>{{i.get_estado_display}}</td>
+                                            </tr>
+                                            <tr style="background:black;color:white">
+                                                <th colspan="4">Detalle del Producto</th>
+                                            </tr>
+                                            {% for j in i.producto|get_product %}
+                                            <tr>
+                                                <th>Producto</th>
+                                                <td colspan="2">{{j.name}}</td>
+                                                <th>
+                                                    <img src="{{j.image.url}}" style="width:100%;height:80px">
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th>Cantidad</th>
+                                                <td>{% get_qty j.id i.id %}</td>
+                                                <th>Precio (por unidad)</th>
+                                                <td>Rs. {{j.price}}</td>
+                                            </tr>
+                                            {% endfor %}
+                                            <tr>
+                                                <th>Precio Total</th>
+                                                <td>Rs. {{i.total}}</td>
+                                                <th>Fecha de Reserva</th>
+                                                <td>{{i.creado}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th colspan="4" style="background:black;color:white">
+                                                    <h4>Detalles del Usuario</h4>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <td colspan="2">{{i.usuario.first_name}} {{i.usuario.last_name}}</td>
+                                                <th>
+                                                    <img src="{{i.usuario.userprofile_set.all.0.image.url}}" style="width:100%;height:80px">
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th>Correo Electrónico</th>
+                                                <td>{{i.usuario.username}}</td>
+                                                <th>Móvil</th>
+                                                <td>{{i.usuario.userprofile_set.all.0.mobile}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Dirección</th>
+                                                <td colspan="3">{{i.usuario.userprofile_set.all.0.address}}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="/delete-order/{{i.id}}/?action={{request.GET.action}}" class="btn btn-danger" onclick="return confirm('¿Estás seguro?')">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

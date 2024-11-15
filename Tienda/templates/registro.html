@@ -1,0 +1,80 @@
+{% load static %}
+<html>
+<head>
+    <script>
+    function checkpass() {
+        if(document.signup.password.value != document.signup.cpwd.value) {
+            alert('La contraseña y la confirmación no coinciden');
+            document.signup.cpwd.focus();
+            return false;
+        }
+        return true;
+    }
+    </script>
+</head>
+<body>
+{% include 'navegacion.html' %}
+<hr class="mt-0">
+<div class="card shadow m-5" id="signupform">
+    <div class="card-body">
+        <div class="container-fluid">
+            <h5 class="p-2" style="border-bottom: 2px solid orange;color:green">Crear una Cuenta</h5>
+            <form method="POST" name="signup" onsubmit="return checkpass();" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Nombre</label>
+                            <input type="text" name="fname" placeholder="Ingresa tu nombre" class="form-control" pattern="[A-Za-z]+">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Apellido</label>
+                            <input type="text" name="lname" placeholder="Ingresa tu apellido" class="form-control" pattern="[A-Za-z]+">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Correo Electrónico</label>
+                            <input type="email" name="email" placeholder="Correo electrónico" required class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Contacto</label>
+                            <input type="text" name="mobile" placeholder="Número de contacto" required class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Contraseña</label>
+                            <input type="password" name="password" placeholder="Ingresa una contraseña" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Confirmar Contraseña</label>
+                            <input type="password" name="cpwd" placeholder="Repite la contraseña" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Subir Foto</label>
+                            <input type="file" name="image" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Dirección</label>
+                            <textarea name="address" class="form-control" placeholder="Dirección completa"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" value="Enviar" class="m-2 px-3 btn btn-primary">
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

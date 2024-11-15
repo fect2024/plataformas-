@@ -1,0 +1,53 @@
+{% extends 'admin_inicio.html' %}
+{% block main %}
+<script type="text/javascript">
+    function checkpass()
+    {
+        if(document.changepassword.newpassword.value!=document.changepassword.confirmpassword.value)
+        {
+            alert('El campo de Nueva Contraseña y Confirmar Contraseña no coinciden');
+            document.changepassword.confirmpassword.focus();
+            return false;
+        }
+        return true;
+    }
+</script>
+<div class="card shadow">
+    <div class="card-body">
+        <h5 class="p-2" style="border-bottom: 2px solid orange;">Cambiar Contraseña</h5>
+        <div class="container-fluid">
+            <form action="" method="post" name="changepassword" onsubmit="return checkpass();">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Contraseña Actual</label>
+                            <input type="password" name="currentpassword" id="currentpassword" placeholder="Ingresa la Contraseña Actual"  class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Nueva Contraseña</label>
+                            <input type="password" name="newpassword" placeholder="Ingresa la Nueva Contraseña"  class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Confirmar Nueva Contraseña</label>
+                            <input type="password" name="confirmpassword" id="confirmpassword" placeholder="Confirma la Nueva Contraseña"  class="form-control" required>
+                        </div>
+                    </div>
+
+                </div>
+                <input type="submit" value="Enviar" class="m-2 px-3 btn btn-primary">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

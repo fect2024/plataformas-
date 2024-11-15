@@ -1,0 +1,58 @@
+{% load static %}
+<html>
+<head>
+    <title>Formulario de Comentarios</title>
+</head>
+<style>
+    label {
+        color: black;
+    }
+</style>
+<body>
+{% include 'navegacion.html' %}
+<hr class="mt-0">
+<div class="card shadow m-5">
+    <div class="card-body">
+        <div class="container-fluid">
+            <h5 class="p-2" style="border-bottom: 2px solid orange;color:green">Formulario de Comentarios</h5>
+            <form method="post" name="feedback">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="fname">Nombre</label>
+                            <input type="text" name="fname" id="fname" placeholder="Ingresa tu nombre" value="{{user.user.first_name}}" readonly class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Apellido</label>
+                            <input type="text" name="lname" value="{{user.user.last_name}}" placeholder="Ingresa tu apellido" readonly class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Correo Electrónico</label>
+                            <input type="email" name="email" placeholder="Correo Electrónico" value="{{user.user.username}}" readonly class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="contacto">Contacto</label>
+                            <input type="text" name="mobile" placeholder="Número de Contacto" value="{{user.mobile}}" readonly required class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Escribe tu retroalimentación</label>
+                            <textarea name="feedback" class="form-control" placeholder="Escribe tu retroalimentación"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" value="Enviar Retroalimentación" class="m-2 px-3 btn btn-primary">
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

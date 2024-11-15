@@ -1,0 +1,33 @@
+{% extends 'admin_inicio.html' %}
+{% block main %}
+<div class="card shadow">
+    <div class="card-body">
+        <h5 class="p-2" style="border-bottom: 2px solid orange;">Todas las Categorías</h5>
+        <div class="container-fluid">
+            <table class="table table-bordered table-sm" id="example">
+                <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Nombre de Categoría</th>
+                    <th>Fecha de Creación</th>
+                    <th>Acción</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in category %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{i.name}}</td>
+                    <td>{{i.created}}</td>
+                    <td>
+                        <a href="/edit-category/{{i.id}}/" class="text-success">Editar</a>
+                        <a href="/delete-category/{{i.id}}/" class="text-danger" onclick="return confirm('¿Estás seguro?')">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

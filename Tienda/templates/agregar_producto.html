@@ -1,0 +1,57 @@
+{% extends 'admin_inicio.html' %}
+{% block main %}
+<div class="card shadow">
+    <div class="card-body">
+        <h5 class="p-2" style="border-bottom: 2px solid orange;">Agregar Producto</h5>
+        <div class="container-fluid">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Categoría del Producto</label>
+                            <select name="category" class="form-control" required>
+                                <option value="">Elegir Categoría</option>
+                                {% for i in category %}
+                                <option value="{{i.id}}">{{i.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Nombre del Producto</label>
+                            <input type="text" name="name" class="form-control" placeholder="Nombre del Producto">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Precio del Producto</label>
+                            <input type="text" name="price" class="form-control" placeholder="Precio del Producto">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Descuento</label>
+                            <input type="text" name="discount" class="form-control" placeholder="Aplicar Descuento">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Imagen del Producto</label>
+                            <input type="file" name="image" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Descripción</label>
+                            <textarea name="desc" class="form-control" placeholder="Escribe la descripción aquí"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" value="Enviar" class="m-2 px-3 btn btn-primary">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

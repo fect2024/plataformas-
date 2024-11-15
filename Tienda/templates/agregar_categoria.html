@@ -1,0 +1,23 @@
+{% extends 'admin_inicio.html' %}
+{% block main %}
+
+<div class="card shadow">
+    <div class="card-body">
+        <h5 class="p-2" style="border-bottom: 2px solid orange;">Agregar Categoria</h5>
+        <div class="container-fluid">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Nombre de Categoria</label>
+                            <input type="text" name="name" class="form-control" placeholder="Nombre">
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" value="Crear" class="m-2 px-3 btn btn-primary">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

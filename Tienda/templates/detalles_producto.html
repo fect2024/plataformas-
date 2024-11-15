@@ -1,0 +1,105 @@
+{% load static custom_tags %}
+<html>
+<head>
+    <title>Detalle del Producto</title>
+    <link href="{% static 'css/product-detail.css' %}" rel="stylesheet"/>
+    <link href="https://w3learnpoint.com/cdn/jquery-picZoomer.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" rel="stylesheet"/>
+</head>
+<body>
+{% include 'navegacion.html' %}
+<section id="services" class="services section-bg">
+    <div class="container">
+      <div class="col-sm-12 text-center mb-4 title_bx">
+        <h3 class="title"><span class="header-title-1">Detalle del</span><span class="header-title-2">Producto</span></h3>
+      </div>
+       <div class="row row-sm">
+          <div class="col-md-6 _boxzoom">
+             <div class="_product-images">
+                <div class="picZoomer">
+                   <img class="my_img" src="{{product.image.url}}" alt="Imágenes de productos">
+                </div>
+             </div>
+          </div>
+          <div class="col-md-6">
+             <div class="_product-detail-content">
+                <p class="_p-name product-name">{{product.name}} </p>
+                <div class="_p-price-box">
+                   <div class="p-list">
+                      <span> M.R.P. : <i class="fa fa-inr"></i> <del> {{product.price}}  </del>   </span>
+                      <span class="price"> Rs. {{product.id|applydiscount}} </span>
+                   </div>
+                   <div class="_p-add-cart">
+                      <div class="_p-qty">
+                         <span>Añadir Cantidad</span>
+                         <div class="value-button decrease_" id="" value="Disminuir Valor">-</div>
+                         <input type="number" name="qty" id="number" value="1" />
+                         <div class="value-button increase_" id="" value="Aumentar Valor">+</div>
+                      </div>
+                   </div>
+                   <div class="_p-features">
+                      <span> Descripción de este producto: </span>
+                      {{product.description}}
+                   </div>
+                   <form action="" method="post" accept-charset="utf-8">
+                      <ul class="spe_ul"></ul>
+                      <div class="_p-qty-and-cart">
+                         <div class="_p-add-cart">
+                           <a href="/add-to-cart/{{product.id}}/" class="btn-theme btn btn-success" tabindex="0">
+                              <i class="fa fa-shopping-cart"></i> Añadir al carrito
+                            </a>
+                            <input type="hidden" name="pid" value="18" />
+                            <input type="hidden" name="price" value="850" />
+                            <input type="hidden" name="url" value="" />
+                            </div>
+                      </div>
+                   </form>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+</section>
+<section class="sec bg-light">
+    <div class="container">
+       <div class="row">
+          <div class="col-sm-12 title_bx">
+             <h3 class="title"> <span class="header-title-1">Publicación</span><span class="header-title-2">Reciente</span></h3>
+          </div>
+       </div>
+       <div class="row">
+          <div class="col-md-12 list-slider mt-4">
+             <div class="owl-carousel common_wd  owl-theme" id="recent_post">
+                 {% for i in latest_product %}
+                <div class="item">
+                   <div class="sq_box shadow">
+                      <div class="pdis_img">
+                         <span class="wishlist">
+                         <a alt="Añadir a la Lista de Deseos" title="Añadir a la Lista de Deseos" href="javascript:void(0);"> <i class="fa fa-heart"></i></a>
+                         </span>
+                         <a href="#">
+                         <img src="{{i.image.url}}">
+                         </a>
+                      </div>
+                      <h4 class="mb-1"> <a href="details.php"> {{i.name}} </a> </h4>
+                      <div class="price-box mb-2">
+                         <span class="price"> Precio <i class="fa fa-inr"></i> {{i.price}} </span>
+                         <span class="offer-price"> Precio de Oferta <i class="fa fa-inr"></i> {{i.id|applydiscount}} </span>
+                      </div>
+                      <div class="btn-box text-center">
+                         <a class="btn btn-sm" href="javascript:void(0);"> <i class="fa fa-shopping-cart"></i> Añadir al Carrito </a>
+                      </div>
+                   </div>
+                </div>
+                {% endfor %}
+             </div>
+          </div>
+       </div>
+    </div>
+</section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-zoom/1.7.21/jquery.zoom.min.js"></script>
+<script src="{% static 'js/product-detal.js' %}"></script>
+</body>
+</html>
